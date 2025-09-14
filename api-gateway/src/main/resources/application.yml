@@ -1,0 +1,24 @@
+spring:
+ application:
+  name: api-gateway
+
+ cloud:
+  loadbalancer:
+   enabled: true
+  gateway:
+   server:
+    webflux:
+     routes:
+      - id: ms-test #aqui va el nombre del msv
+        uri: lb://ms-test #aqui va el nombre del msv
+        predicates:
+         - Path=/api/test/** #Esta es la ruta a la cual se accedera
+        filters:
+         - StripPrefix=2
+server:
+ port: 8090
+
+eureka:
+ client:
+  service-url:
+   defaultZone: http://localhost:8761/eureka
